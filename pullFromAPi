@@ -1,0 +1,23 @@
+function myFunction() {
+  
+    var stationRow = [];
+  var todayDate = Utilities.formatDate(new Date(), "GMT+1", "yyyy-MM-dd");
+  var todayTime = Utilities.formatDate(new Date(), "GMT+1", "HH:mm:ss");
+  var doc = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = doc.getSheetByName("velohData")
+  
+  // API key removed, request one from jcdecaux website
+  var url = "https://api.jcdecaux.com/vls/v3/stations?apiKey={API-KEY}&contract=luxembourg"
+  
+  var response = UrlFetchApp.fetch(url).getContentText();
+  var stations = JSON.parse(response);
+  
+  // Format of JSON response https://developer.jcdecaux.com/#/opendata/vls?page=dynamic
+  
+  for(var i =0; i < stations.length; i++){
+    sheet.appendRow([stations[i].number, stations[i].name, stations[i].address, 
+      stations[i].totalStands.availabilities.bikes, stations[i].totalStands.availabilities.stands,
+      stations[i].totalStands.availabilities.electricalBikes, stations[i].totalStands.capacity, 
+      stations[i].position.latitude, stations[i].position.longitude,todayDate, todayTime])
+    }
+}
