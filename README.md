@@ -13,3 +13,4 @@ https://public.tableau.com/app/profile/johandr.le.roux/viz/Veluxurebeta/Velquell
 
 Next Steps:
 1. Apply predictive techniques to the data set and try to come up with beter prediction models
+2. Comment the code, although it is really simple. 👨‍✈️
